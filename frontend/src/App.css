@@ -1,0 +1,132 @@
+/* ===== Viewport lock (page never scrolls) ===== */
+* { box-sizing: border-box; }
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    overflow: hidden; /* page won't scroll */
+}
+
+/* If you have #root in React, this helps a lot */
+#root {
+    height: 100%;
+    width: 100%;
+}
+
+/* ===== Page layout ===== */
+.page{
+    height: 100vh;                 /* lock to screen */
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+
+    padding: 20px;                 /* normal padding instead of 600px */
+    overflow: hidden;              /* page itself won't scroll */
+}
+
+/* ===== Section card ===== */
+.section{
+    display: flex;
+    flex-direction: column;
+
+    height: 50%;
+    min-height: 0;                 /* 🔥 CRITICAL so inner scrolling works */
+    width: 100%;
+
+    background: rgba(18, 26, 43, 0.45);
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.06);
+
+    overflow: hidden;              /* section doesn't scroll; body does */
+    padding: 16px;
+}
+
+/* ===== Section title ===== */
+.title{
+    font-size: 22px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.9);
+    margin: 0 0 12px 0;
+}
+
+/* ===== Scrollable area INSIDE the section ===== */
+.sectionBody{
+    flex: 1;                       /* take remaining height */
+    min-height: 0;                 /* 🔥 CRITICAL so it can shrink + scroll */
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* ===== Action row ===== */
+.action{
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    min-height: 220px;             /* keeps your block height consistent */
+    padding: 16px;
+    border-radius: 18px;
+
+    background: rgba(15, 23, 42, 0.55);
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+}
+
+/* ===== Request / Response panels ===== */
+.request,
+.response,
+.response1{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+    min-height: 0;                 /* helps their internal overflow too */
+    padding: 14px;
+    border-radius: 14px;
+
+    background: rgba(18, 26, 43, 0.65);
+    border: 1px solid rgba(255,255,255,0.06);
+    overflow: auto;
+}
+
+/* ===== Controls ===== */
+.button{
+    height: 42px;
+    width: 100%;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+
+    font-weight: 600;
+    font-size: 14px;
+    color: white;
+    background: linear-gradient(135deg, #6b6ef9, #7b7eff);
+    box-shadow: 0 8px 20px rgba(107,110,249,0.35);
+}
+
+.button:hover{
+    transform: translateY(-1px);
+    box-shadow: 0 10px 26px rgba(107,110,249,0.45);
+}
+
+.input{
+    height: 36px;
+    width: 100%;
+    border-radius: 10px;
+    padding: 0 12px;
+
+    background: rgba(11,18,32,0.9);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+.input::placeholder{
+    color: rgba(255,255,255,0.5);
+}
